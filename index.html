@@ -3,662 +3,1363 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Priyesh Jagroep - Personal Portfolio</title>
+  <title>Priyesh Jagroep — Data Scientist</title>
 
-  <!--
-    - favicon
-  -->
+  <meta name="description"
+    content="Data Scientist & Business Intelligence specialist. Building data platforms, dashboards and ML models with Python, SQL, Power BI and Microsoft Fabric.">
+
+  <!-- OG / Social -->
+  <meta property="og:title" content="Priyesh Jagroep — Data Scientist">
+  <meta property="og:description"
+    content="Data Scientist & BI specialist. Python, SQL, Power BI, Microsoft Fabric, Spark. Boot up priyesh.exe to find out more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://priyeshj12.github.io">
+  <link rel="canonical" href="https://priyeshj12.github.io">
+
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!--
-    - google font link
-  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ================= PriyeshOS — a retro data-desktop ================= */
+
+    :root {
+      --teal: #007a7a;
+      --teal-deep: #005f5f;
+      --gray: #c0c0c0;
+      --gray-light: #dfdfdf;
+      --gray-dark: #808080;
+      --gray-darker: #404040;
+      --navy: #000080;
+      --navy-light: #1084d0;
+      --text: #1a1a1a;
+      --paper: #ffffff;
+      --term-green: #33ff66;
+      --term-amber: #ffb000;
+      --sel: #000080;
+      font-size: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      background: var(--teal);
+      color: var(--text);
+      overflow: hidden;
+      -webkit-font-smoothing: none;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: var(--navy); }
+    button { font: inherit; cursor: pointer; }
+
+    ::selection { background: var(--sel); color: #fff; }
+
+    /* ---------- Win95 bevels ---------- */
+
+    .bevel-out {
+      background: var(--gray);
+      border: 2px solid;
+      border-color: #ffffff var(--gray-darker) var(--gray-darker) #ffffff;
+      box-shadow: inset 1px 1px 0 var(--gray-light), inset -1px -1px 0 var(--gray-dark);
+    }
+
+    .bevel-in {
+      background: var(--paper);
+      border: 2px solid;
+      border-color: var(--gray-dark) #ffffff #ffffff var(--gray-dark);
+      box-shadow: inset 1px 1px 0 var(--gray-darker);
+    }
+
+    .btn95 {
+      background: var(--gray);
+      border: 2px solid;
+      border-color: #ffffff var(--gray-darker) var(--gray-darker) #ffffff;
+      box-shadow: inset 1px 1px 0 var(--gray-light), inset -1px -1px 0 var(--gray-dark);
+      padding: 3px 14px;
+      font-size: 0.85rem;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn95:active, .btn95.pressed {
+      border-color: var(--gray-darker) #ffffff #ffffff var(--gray-darker);
+      box-shadow: inset 1px 1px 0 var(--gray-dark);
+    }
+
+    /* ---------- Boot screen ---------- */
+
+    #boot {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      color: #c7c7c7;
+      font-family: "VT323", "IBM Plex Mono", monospace;
+      font-size: clamp(16px, 2.4vw, 22px);
+      line-height: 1.35;
+      padding: 4vh 5vw;
+      z-index: 9999;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    #boot .boot-line { white-space: pre-wrap; }
+    #boot .ok { color: var(--term-green); }
+    #boot .val { color: var(--term-amber); }
+    #boot .boot-skip {
+      position: absolute;
+      bottom: 3vh;
+      right: 5vw;
+      color: #666;
+      font-size: 0.8em;
+      animation: blink 1.2s steps(1) infinite;
+    }
+
+    #boot .cursor::after {
+      content: "▌";
+      animation: blink 0.9s steps(1) infinite;
+      color: #c7c7c7;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* CRT scanlines + vignette on boot and terminal */
+    .crt::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px);
+    }
+
+    /* ---------- Desktop ---------- */
+
+    #desktop {
+      position: fixed;
+      inset: 0 0 40px 0;
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.06), transparent 60%),
+        var(--teal);
+      overflow: hidden;
+    }
+
+    #desktop.hidden, #boot.hidden, #shutdown.hidden { display: none; }
+
+    /* ---------- Desktop icons ---------- */
+
+    #icons {
+      position: absolute;
+      top: 14px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 10px 6px;
+      height: calc(100% - 24px);
+      align-content: flex-start;
+    }
+
+    .dicon {
+      width: 92px;
+      background: none;
+      border: 1px solid transparent;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 2px;
+      text-decoration: none;
+    }
+
+    .dicon:focus, .dicon:hover { outline: 1px dotted #fff; outline-offset: -1px; }
+
+    .dicon .ic {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      image-rendering: pixelated;
+      filter: drop-shadow(1px 2px 0 rgba(0,0,0,0.45));
+    }
+
+    .dicon .ic img { width: 40px; height: 40px; object-fit: contain; }
+
+    .dicon .lbl {
+      font-size: 0.78rem;
+      line-height: 1.15;
+      text-align: center;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.7);
+      padding: 0 2px;
+    }
+
+    .dicon.selected .lbl { background: var(--sel); }
+
+    /* ---------- Windows ---------- */
+
+    .win {
+      position: absolute;
+      min-width: 280px;
+      max-width: min(760px, calc(100vw - 20px));
+      background: var(--gray);
+      border: 2px solid;
+      border-color: #ffffff var(--gray-darker) var(--gray-darker) #ffffff;
+      box-shadow: inset 1px 1px 0 var(--gray-light), inset -1px -1px 0 var(--gray-dark),
+        4px 4px 0 rgba(0, 0, 0, 0.35);
+      display: none;
+      flex-direction: column;
+      padding: 3px;
+    }
+
+    .win.open { display: flex; }
+
+    .win.maxed {
+      top: 4px !important;
+      left: 4px !important;
+      width: calc(100vw - 8px) !important;
+      height: calc(100vh - 48px) !important;
+      max-width: none;
+    }
+
+    .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, #7a7a7a, #9a9a9a);
+      color: #e2e2e2;
+      padding: 3px 4px;
+      user-select: none;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .win.focused .titlebar { background: linear-gradient(90deg, var(--navy), var(--navy-light)); color: #fff; }
+
+    .titlebar .t-ic { font-size: 14px; line-height: 1; }
+
+    .titlebar .t-title {
+      flex: 1;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .t-btns { display: flex; gap: 3px; }
+
+    .t-btn {
+      width: 20px;
+      height: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      line-height: 1;
+      color: #000;
+      background: var(--gray);
+      border: 2px solid;
+      border-color: #ffffff var(--gray-darker) var(--gray-darker) #ffffff;
+      padding: 0;
+    }
+
+    .t-btn:active { border-color: var(--gray-darker) #ffffff #ffffff var(--gray-darker); }
+
+    .menubar {
+      display: flex;
+      gap: 2px;
+      padding: 2px 2px 3px;
+      font-size: 0.8rem;
+    }
+
+    .menubar span { padding: 1px 7px; }
+    .menubar span:hover { background: var(--sel); color: #fff; }
+
+    .win-body {
+      background: var(--paper);
+      border: 2px solid;
+      border-color: var(--gray-dark) #ffffff #ffffff var(--gray-dark);
+      overflow: auto;
+      flex: 1;
+      padding: 16px 18px;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      scrollbar-width: thin;
+    }
+
+    .statusbar {
+      display: flex;
+      gap: 3px;
+      padding-top: 3px;
+      font-size: 0.74rem;
+      color: #222;
+    }
+
+    .statusbar > div {
+      background: var(--gray);
+      border: 1px solid;
+      border-color: var(--gray-dark) #ffffff #ffffff var(--gray-dark);
+      padding: 1px 8px;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .statusbar > div:last-child { flex: 0 0 auto; }
+
+    /* ---------- Content styles ---------- */
+
+    .win-body h3 {
+      font-family: "VT323", monospace;
+      font-size: 1.55rem;
+      font-weight: 400;
+      margin: 18px 0 6px;
+      border-bottom: 2px solid var(--gray);
+    }
+
+    .win-body h3:first-child { margin-top: 0; }
+
+    .win-body p { margin: 0 0 10px; }
+    .win-body ul { margin: 0 0 12px 18px; }
+    .win-body li { margin-bottom: 4px; }
+
+    .about-head {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .about-head img {
+      width: 84px;
+      height: 84px;
+      border: 2px solid;
+      border-color: var(--gray-dark) #ffffff #ffffff var(--gray-dark);
+      background: var(--teal);
+      padding: 6px;
+    }
+
+    .about-head .who .big {
+      font-family: "VT323", monospace;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .about-head .who .sub { color: #555; font-size: 0.82rem; margin-top: 4px; }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+
+    .badge {
+      border: 1px solid var(--gray-dark);
+      background: var(--gray-light);
+      box-shadow: 1px 1px 0 var(--gray-dark);
+      padding: 2px 8px;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    .clients-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .clients-row a {
+      border: 2px solid;
+      border-color: #ffffff var(--gray-dark) var(--gray-dark) #ffffff;
+      background: #fff;
+      padding: 6px 10px;
+      display: grid;
+      place-items: center;
+    }
+
+    .clients-row img { height: 28px; width: auto; max-width: 110px; object-fit: contain; }
+
+    .jobitem { margin-bottom: 16px; }
+
+    .jobitem .role { font-weight: 600; }
+
+    .jobitem .org { color: var(--navy); }
+
+    .jobitem .when {
+      font-size: 0.74rem;
+      color: #555;
+      background: var(--gray-light);
+      border: 1px solid var(--gray-dark);
+      padding: 0 6px;
+      display: inline-block;
+      margin: 2px 0 6px;
+    }
+
+    /* group box */
+    .grp {
+      border: 2px groove var(--gray-light);
+      padding: 12px 14px 8px;
+      margin: 0 0 16px;
+      position: relative;
+    }
+
+    .grp > .grp-t {
+      position: absolute;
+      top: -0.7em;
+      left: 10px;
+      background: var(--paper);
+      padding: 0 6px;
+      font-size: 0.78rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* ---------- Dashboard ---------- */
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .kpi {
+      border: 2px solid;
+      border-color: var(--gray-dark) #ffffff #ffffff var(--gray-dark);
+      background: #f4f4f4;
+      padding: 10px 10px 8px;
+      text-align: center;
+    }
+
+    .kpi .n {
+      font-family: "VT323", monospace;
+      font-size: 2.1rem;
+      line-height: 1;
+      color: var(--teal-deep);
+    }
+
+    .kpi .d { font-size: 0.7rem; color: #444; margin-top: 4px; }
+
+    .bar-row { display: grid; grid-template-columns: 110px 1fr 38px; gap: 8px; align-items: center; margin-bottom: 7px; font-size: 0.78rem; }
+
+    .bar-track {
+      height: 14px;
+      border: 1px solid var(--gray-darker);
+      background: repeating-linear-gradient(90deg, #e8e8e8 0 6px, #f6f6f6 6px 12px);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: repeating-linear-gradient(90deg, var(--navy) 0 8px, var(--navy-light) 8px 10px);
+      transition: width 0.9s steps(12);
+    }
+
+    .bar-pct { text-align: right; color: #555; }
+
+    .dash-note { font-size: 0.72rem; color: #666; margin-top: 10px; }
+
+    /* ---------- Projects ---------- */
+
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+
+    .proj-card {
+      border: 2px solid;
+      border-color: #ffffff var(--gray-dark) var(--gray-dark) #ffffff;
+      background: #f7f7f7;
+      padding: 10px;
+      font-size: 0.8rem;
+    }
+
+    .proj-card .p-ic { font-size: 26px; margin-bottom: 6px; }
+
+    .proj-card .p-name { font-weight: 600; margin-bottom: 4px; }
+
+    .proj-card .p-for { color: var(--navy); font-size: 0.72rem; margin-bottom: 6px; }
+
+    .proj-card img { border: 1px solid var(--gray-dark); margin-bottom: 8px; height: 110px; width: 100%; object-fit: cover; object-position: top; }
+
+    /* ---------- Terminal ---------- */
+
+    .win-body.term {
+      background: #000;
+      color: var(--term-green);
+      font-size: 0.84rem;
+      line-height: 1.45;
+      padding: 12px 14px;
+      position: relative;
+      cursor: text;
+    }
+
+    .term .dim { color: #1f9e46; }
+    .term .amber { color: var(--term-amber); }
+    .term .white { color: #ddd; }
+    .term a { color: var(--term-amber); }
+    .term pre { font-family: inherit; white-space: pre-wrap; word-break: break-word; margin: 0 0 4px; }
+
+    .term-in-row { display: flex; gap: 0; }
+    .term-in-row .prompt { white-space: pre; }
+
+    #term-input {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      color: var(--term-green);
+      font: inherit;
+      caret-color: var(--term-green);
+    }
+
+    /* ---------- Taskbar ---------- */
+
+    #taskbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40px;
+      background: var(--gray);
+      border-top: 2px solid #fff;
+      box-shadow: 0 -1px 0 var(--gray-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 6px;
+      z-index: 5000;
+    }
+
+    #start-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 3px 10px 3px 7px;
+    }
+
+    #start-btn .logo { font-size: 15px; }
+
+    #task-btns { display: flex; gap: 4px; flex: 1; overflow: hidden; }
+
+    .task-btn {
+      max-width: 160px;
+      min-width: 0;
+      flex: 0 1 auto;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.76rem;
+      padding: 3px 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #clock {
+      border: 1px solid;
+      border-color: var(--gray-dark) #ffffff #ffffff var(--gray-dark);
+      padding: 3px 10px;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    /* ---------- Start menu ---------- */
+
+    #start-menu {
+      position: fixed;
+      left: 4px;
+      bottom: 44px;
+      width: 250px;
+      z-index: 6000;
+      display: none;
+      padding: 3px;
+    }
+
+    #start-menu.open { display: flex; }
+
+    #start-menu .sm-side {
+      background: linear-gradient(180deg, var(--navy), var(--navy-light));
+      color: #fff;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: "VT323", monospace;
+      font-size: 1.4rem;
+      padding: 10px 4px;
+      letter-spacing: 0.05em;
+    }
+
+    #start-menu .sm-items { flex: 1; display: flex; flex-direction: column; }
+
+    .sm-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      font-size: 0.84rem;
+      text-decoration: none;
+      color: var(--text);
+      background: none;
+      border: 0;
+      text-align: left;
+      width: 100%;
+    }
+
+    .sm-item:hover { background: var(--sel); color: #fff; }
+
+    .sm-item .smi { font-size: 17px; width: 22px; text-align: center; }
+
+    .sm-sep { border-top: 1px solid var(--gray-dark); border-bottom: 1px solid #fff; margin: 3px 4px; }
+
+    /* ---------- Shutdown ---------- */
+
+    #shutdown {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      color: var(--term-amber);
+      font-family: "VT323", monospace;
+      font-size: clamp(22px, 4vw, 40px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      z-index: 10000;
+      cursor: pointer;
+      padding: 20px;
+    }
+
+    /* ---------- Mobile ---------- */
+
+    @media (max-width: 700px) {
+      #icons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: auto;
+        width: calc(100% - 16px);
+        align-content: flex-start;
+      }
+
+      .dicon { width: 84px; }
+
+      .win {
+        top: 4px !important;
+        left: 4px !important;
+        right: 4px;
+        width: auto !important;
+        max-width: none;
+        height: calc(100% - 52px) !important;
+        position: fixed;
+        bottom: 48px;
+      }
+
+      .task-btn { max-width: 90px; }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="lang-switch" aria-label="Language selector">
-      <a href="index.html" class="lang-link lang-active">EN</a>
-      <span class="lang-divider"></span>
-      <a href="index-nl.html" class="lang-link">NL</a>
+  <noscript>
+    <div style="padding:24px; background:#fff; height:100%; overflow:auto;">
+      <h1>Priyesh Jagroep — Data Scientist / BI Specialist</h1>
+      <p>Almere, Netherlands · <a href="mailto:priyeshjj@gmail.com">priyeshjj@gmail.com</a> ·
+        <a href="https://www.linkedin.com/in/priyesh-jagroep-672526179/">LinkedIn</a> ·
+        <a href="https://github.com/priyeshj12">GitHub</a></p>
+      <p>This site is an interactive retro desktop and needs JavaScript. A classic version is available in
+        <a href="index-nl.html">Dutch</a>.</p>
+      <p>MSc Data Science (University of Amsterdam). Business Intelligence Specialist at the Dutch Authority for the
+        Financial Markets (AFM). Previously IT Developer at Yellowtail BV. Python, SQL, Power BI, Microsoft Fabric,
+        Spark, machine learning.</p>
+    </div>
+  </noscript>
+
+  <!-- ================= BOOT ================= -->
+  <div id="boot" class="crt" role="button" aria-label="Skip boot sequence" tabindex="0">
+    <div id="boot-lines"></div>
+    <div class="boot-skip">press any key to skip ▌</div>
+  </div>
+
+  <!-- ================= DESKTOP ================= -->
+  <div id="desktop" class="hidden">
+
+    <div id="icons">
+      <button class="dicon" data-open="win-about">
+        <span class="ic"><img src="./assets/images/personal_memoji.png" alt=""></span>
+        <span class="lbl">priyesh.exe</span>
+      </button>
+      <button class="dicon" data-open="win-resume">
+        <span class="ic">📄</span>
+        <span class="lbl">resume.exe</span>
+      </button>
+      <button class="dicon" data-open="win-projects">
+        <span class="ic">📁</span>
+        <span class="lbl">projects\</span>
+      </button>
+      <button class="dicon" data-open="win-dash">
+        <span class="ic">📊</span>
+        <span class="lbl">dashboard.exe</span>
+      </button>
+      <button class="dicon" data-open="win-term">
+        <span class="ic">🖥️</span>
+        <span class="lbl">sql_term.exe</span>
+      </button>
+      <button class="dicon" data-open="win-contact">
+        <span class="ic">📬</span>
+        <span class="lbl">contact.txt</span>
+      </button>
+      <a class="dicon" href="index-nl.html">
+        <span class="ic">🇳🇱</span>
+        <span class="lbl">nl_versie.htm</span>
+      </a>
     </div>
 
-  <main>
-
-    <!--
-      - #SIDEBAR
-    -->
-
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-
-        <figure class="avatar-box">
-          <img src="./assets/images/personal_memoji.png" alt="Priyesh Jagroep" width="80">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Priyesh Jagroep">Priyesh Jagroep</h1>
-
-          <p class="title">Data Analyst / Data Scientist</p>
+    <!-- ---------- about ---------- -->
+    <section class="win" id="win-about" data-title="priyesh.exe — About" data-ic="👤" style="left: 12%; top: 7%; width: 620px; height: 74%;">
+      <div class="titlebar">
+        <span class="t-ic">👤</span><span class="t-title">priyesh.exe — About</span>
+        <span class="t-btns">
+          <button class="t-btn" data-act="min" aria-label="Minimize">▁</button>
+          <button class="t-btn" data-act="max" aria-label="Maximize">▢</button>
+          <button class="t-btn" data-act="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Help</span></div>
+      <div class="win-body">
+        <div class="about-head">
+          <img src="./assets/images/personal_memoji.png" alt="Priyesh Jagroep memoji">
+          <div class="who">
+            <div class="big">Priyesh Jagroep</div>
+            <div class="sub">Data Scientist / Business Intelligence Specialist<br>Almere → Amsterdam, NL</div>
+          </div>
         </div>
 
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
-      </div>
-
-      <div class="sidebar-info_more">
-
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:richard@example.com" class="contact-link">priyeshjj@gmail.com</a>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="1982-06-23">Jan 8, 1999</time>
-            </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Amsterdam, Netherlands, NL</address>
-            </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/priyesh-jagroep-672526179/" class="social-link">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-        </ul>
-
-      </div>
-
-    </aside>
-
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-        </ul>
-
-      </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-      
-        <section class="about-text">
-          <p>
-            I am Priyesh Jagroep, a Data Scientist and Business Intelligence specialist from Almere, working in the Amsterdam
-            region. I work with Python, SQL and modern data platforms to turn data into clear insights and dashboards for
-            organisations.
-          </p>
-      
-          <p>
-            In my work I combine data engineering with data analysis. At the Dutch Authority for the Financial Markets I build
-            scalable solutions in Microsoft Fabric, Spark and Data Lakes and translate complex financial data into clear
-            reports in Power BI and SSRS. My focus is on clear visualisations, reliable figures and reports that decision
-            makers can use right away.
-          </p>
-        </section>
-      
-        <!--
-          - service
-        -->
-      
-        <section class="service">
-      
-          <h3 class="h3 service-title">What I do</h3>
-      
-          <ul class="service-list">
-      
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg" alt="dashboard icon" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Dashboards and KPI reporting</h4>
-                <p class="service-item-text">
-                  Developing clear Power BI dashboards and reports that allow teams to steer directly on KPIs and risks.
-                </p>
-              </div>
-            </li>
-      
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="data engineering icon" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Data pipelines and data engineering</h4>
-                <p class="service-item-text">
-                  Building scalable data pipelines in Microsoft Fabric, Spark and Data Lakes so that data is reliable and
-                  reusable across the organisation.
-                </p>
-              </div>
-            </li>
-      
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-app.svg" alt="machine learning icon" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Machine learning and forecasting</h4>
-                <p class="service-item-text">
-                  Designing models in Python that forecast trends and peak load and help organisations look ahead instead of
-                  only looking back.
-                </p>
-              </div>
-            </li>
-      
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-photo.svg" alt="data storytelling icon" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Data storytelling and knowledge sharing</h4>
-                <p class="service-item-text">
-                  Explaining analyses in clear language, giving sessions about data and guiding stakeholders through what the
-                  numbers actually mean.
-                </p>
-              </div>
-            </li>
-      
-          </ul>
-      
-        </section>
-
-
-        <!--
-          - testimonials
-        -->
-
-        <section class="testimonials">
-
-          <h3 class="h3 testimonials-title">Testimonials</h3>
-
-          <ul class="testimonials-list has-scrollbar">
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-2.png" alt="Jessica miller" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-3.png" alt="Emily evans" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/avatar-4.png" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="testimonials-modal">
-
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
-              </figure>
-
-              <img src="./assets/images/icon-quote.svg" alt="quote icon">
-            </div>
-
-            <div class="modal-content">
-
-              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-
-              <time datetime="2021-06-14">14 June, 2021</time>
-
-              <div data-modal-text>
-                <p>
-                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                  lot of experience
-                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                  consectetur adipiscing
-                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                </p>
-              </div>
-
-            </div>
-
-          </section>
-
+        <div class="badge-row">
+          <span class="badge">MSc Data Science</span>
+          <span class="badge">Python · SQL</span>
+          <span class="badge">Power BI</span>
+          <span class="badge">Microsoft Fabric · Spark</span>
+          <span class="badge">🇳🇱 Dutch</span>
+          <span class="badge">🇬🇧 English</span>
         </div>
 
+        <p>
+          Hi, I'm Priyesh. I turn messy data into things people can actually use: reliable pipelines,
+          clear dashboards and models that look ahead instead of back.
+        </p>
+        <p>
+          By day I work at the Dutch Authority for the Financial Markets (AFM), where I engineer scalable
+          data solutions with Microsoft Fabric, Spark and Data Lakes, and automate regulatory and risk
+          reporting in Power BI and SSRS for 25+ teams. Before that I spent three years at Yellowtail
+          building GRC reporting workflows and data solutions for government clients.
+        </p>
+        <p>
+          I care about data ethics and privacy, predictive analytics, and explaining what the numbers
+          actually mean — in plain language, to anyone who has to make a decision with them.
+        </p>
 
-        <!--
-          - clients
-        -->
+        <h3>What I do</h3>
+        <ul>
+          <li><b>Dashboards &amp; KPI reporting</b> — Power BI dashboards teams can steer on directly.</li>
+          <li><b>Data pipelines &amp; engineering</b> — Fabric, Spark and Data Lakes; reliable and reusable data.</li>
+          <li><b>Machine learning &amp; forecasting</b> — Python models that predict trends and peak load.</li>
+          <li><b>Data storytelling</b> — sessions and analyses in clear language for stakeholders.</li>
+        </ul>
 
-        <section class="clients">
+        <h3>Organisations I've worked with</h3>
+        <div class="clients-row">
+          <a href="https://www.afm.nl" target="_blank" rel="noopener"><img src="./assets/images/clients/AFM.PNG" alt="AFM"></a>
+          <a href="https://www.conclusion.nl" target="_blank" rel="noopener"><img src="./assets/images/clients/conclusion.png" alt="Conclusion"></a>
+          <a href="https://www.amsterdam.nl" target="_blank" rel="noopener"><img src="./assets/images/clients/GemAms.svg" alt="Gemeente Amsterdam"></a>
+          <a href="https://www.marktplaats.nl" target="_blank" rel="noopener"><img src="./assets/images/clients/Marktpl.png" alt="Marktplaats"></a>
+        </div>
+      </div>
+      <div class="statusbar"><div>C:\Users\Priyesh\about.txt</div><div>UTF-8</div></div>
+    </section>
 
-          <h3 class="h3 clients-title">Clients & Experiences</h3>
+    <!-- ---------- resume ---------- -->
+    <section class="win" id="win-resume" data-title="resume.exe" data-ic="📄" style="left: 22%; top: 10%; width: 600px; height: 76%;">
+      <div class="titlebar">
+        <span class="t-ic">📄</span><span class="t-title">resume.exe</span>
+        <span class="t-btns">
+          <button class="t-btn" data-act="min" aria-label="Minimize">▁</button>
+          <button class="t-btn" data-act="max" aria-label="Maximize">▢</button>
+          <button class="t-btn" data-act="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="win-body">
 
-          <ul class="clients-list has-scrollbar">
+        <div class="grp">
+          <div class="grp-t">Work experience</div>
 
-            <li class="clients-item">
-              <a href="https://www.afm.nl">
-                <img src="./assets/images/clients/AFM.PNG" alt="Autoriteit Financiële Markten">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="https://www.conclusion.nl">
-                <img src="./assets/images/clients/conclusion.png" alt="Conclusion">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="https://www.amsterdam.nl">
-                <img src="./assets/images/clients/GemAms.svg" alt="Gemeente Amsterdam">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="https://www.marktplaats.nl">
-                <img src="./assets/images/clients/Marktpl.png" alt="Marktplaats">
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-          <header>
-            <h2 class="h2 article-title">Resume</h2>
-          </header>
-        
-          <!-- Education -->
-          <section class="timeline">
-        
-            <div class="title-wrapper">
-              <div class="icon-box">
-                <ion-icon name="book-outline"></ion-icon>
-              </div>
-        
-              <h3 class="h3">Education</h3>
-            </div>
-        
-            <ol class="timeline-list">
-        
-              <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">University of Amsterdam - MSc Data Science</h4>
-                <span>Sep 2023 - Jul 2025</span>
-                <p class="timeline-text">
-                  Master in Data Science with an average grade of 7.5. Courses included statistics, machine learning and data
-                  visualisation. During the programme I worked on a project for the City of Amsterdam using machine learning
-                  models to predict peak crowding in Amsterdam based on public transport and event data.
-                </p>
-              </li>
-        
-              <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">University of Amsterdam - BSc Information Science</h4>
-                <span>Sep 2018 - Jan 2022</span>
-                <p class="timeline-text">
-                  Bachelor in Information Science with a GPA of 6.85 out of 10. Focus on data structures and algorithms, design
-                  of information systems and the link between technology and users. During the programme I worked on an
-                  interactive UI prototype for a large Dutch online marketplace by implementing iDIN verification.
-                </p>
-              </li>
-        
-            </ol>
-        
-          </section>
-        
-          <!-- Work experience -->
-          <section class="timeline">
-        
-            <div class="title-wrapper">
-              <div class="icon-box">
-                <ion-icon name="briefcase-outline"></ion-icon>
-              </div>
-        
-              <h3 class="h3">Work experience</h3>
-            </div>
-        
-            <ol class="timeline-list">
-        
-              <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">Business Intelligence Specialist - Dutch Authority for the Financial Markets</h4>
-                <span>Feb 2025 - Present</span>
-                <p class="timeline-text">
-                  At the AFM I design and build scalable data structures with Microsoft Fabric, Spark and Data Lakes to support
-                  supervision and data driven policy. I automate reporting and risk reporting in Power BI and SSRS to reduce
-                  lead times and keep reports consistent across more than 25 departments. I also translate complex financial
-                  data into clear visualisations for different stakeholders.
-                </p>
-              </li>
-        
-              <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">IT Developer (Medior) - Yellowtail BV</h4>
-                <span>Jun 2022 - Dec 2024</span>
-                <p class="timeline-text">
-                  Responsible for turning complex datasets into concrete steering information with SQL and Python, which
-                  improved operational efficiency. I designed and automated GRC reporting flows and built interactive dashboards
-                  in Power BI and SSRS. I also worked closely with government clients to gather requirements and deliver
-                  tailored data solutions for more than 25 departments.
-                </p>
-              </li>
-        
-              <li class="timeline-item">
-                <h4 class="h4 timeline-item-title">Sales Representative / Retail Analyst - Football Temple</h4>
-                <span>Feb 2020 - Sep 2020</span>
-                <p class="timeline-text">
-                  Analysed sales data to identify key KPIs and commercial opportunities. Created visualisations and dashboards
-                  for management and was responsible for visual merchandising in the store.
-                </p>
-              </li>
-        
-            </ol>
-        
-          </section>
-        
-          <!-- Skills -->
-          <section class="skill">
-
-            <h3 class="h3 skills-title">Skills</h3>
-          
-            <ul class="skills-tag-list">
-              <li class="skills-tag">Python</li>
-              <li class="skills-tag">SQL</li>
-              <li class="skills-tag">Power BI</li>
-              <li class="skills-tag">Data visualization</li>
-              <li class="skills-tag">Machine learning</li>
-              <li class="skills-tag">NLP</li>
-              <li class="skills-tag">Docker</li>
-              <li class="skills-tag">Git</li>
-              <li class="skills-tag">Microsoft Fabric</li>
-              <li class="skills-tag">Data Lakes</li>
-              <li class="skills-tag">Spark</li>
+          <div class="jobitem">
+            <div class="role">Business Intelligence Specialist <span class="org">@ Autoriteit Financiële Markten (AFM)</span></div>
+            <div class="when">Feb 2025 — present · Amsterdam</div>
+            <ul>
+              <li>Engineering scalable data solutions with Microsoft Fabric, Spark and Data Lakes for AFM's supervisory processes and data-driven policymaking.</li>
+              <li>Automated regulatory and risk reporting with Power BI and SSRS — faster turnaround, consistent reports across departments.</li>
+              <li>Translating complex financial datasets into clear visual insights for 25+ teams.</li>
             </ul>
-          
-          </section>                    
-        
-        </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-
-            </ul>
-
           </div>
 
-          <ul class="project-list">
+          <div class="jobitem">
+            <div class="role">IT Developer (Medior) <span class="org">@ Yellowtail BV</span></div>
+            <div class="when">Jun 2022 — Dec 2025 · Naarden</div>
+            <ul>
+              <li>Turned complex datasets into actionable insights with SQL and Python, improving operational efficiency by 15%.</li>
+              <li>Designed and automated GRC reporting workflows; built interactive Power BI / SSRS dashboards, cutting report prep time by 23%.</li>
+              <li>Gathered requirements with government stakeholders and delivered tailored data solutions for 25+ departments.</li>
+            </ul>
+          </div>
 
-            <li class="project-item active" data-filter-item data-category="applications">
-              <a href="journey-app.html">
-            
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-            
-                  <img src="./assets/images/portfolio/journey-app/project-journey-app.JPG"
-                       alt="Context aware journey planner app" loading="lazy">
-                </figure>
-            
-                <h3 class="project-title">Context aware journey planner</h3>
-                <p class="project-category">Mobile application</p>
-            
-              </a>
-            </li>
-            
+          <div class="jobitem">
+            <div class="role">Sales Representative / Retail Analyst <span class="org">@ Football Temple</span></div>
+            <div class="when">Feb 2020 — Sep 2020 · Amsterdam</div>
+            <ul>
+              <li>Analysed sales data for KPIs and business opportunities; built visualisations and dashboards for management.</li>
+            </ul>
+          </div>
+        </div>
 
-          </ul>
+        <div class="grp">
+          <div class="grp-t">Education</div>
 
-        </section>
+          <div class="jobitem">
+            <div class="role">MSc Data Science <span class="org">@ University of Amsterdam</span></div>
+            <div class="when">2021 — 2025</div>
+            <ul>
+              <li>Statistics &amp; probability, machine learning, data visualization.</li>
+              <li>Predicted crowdedness in Amsterdam for the City of Amsterdam using GVB transit and concert data.</li>
+            </ul>
+          </div>
 
-      </article>
+          <div class="jobitem">
+            <div class="role">BSc Information Science <span class="org">@ University of Amsterdam</span></div>
+            <div class="when">2018 — 2022</div>
+            <ul>
+              <li>Data structures &amp; algorithms, information systems design.</li>
+              <li>Built an interactive UI prototype for Marktplaats with iDIN identity verification.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grp">
+          <div class="grp-t">Toolbox</div>
+          <div class="badge-row" style="margin:0;">
+            <span class="badge">Python</span><span class="badge">SQL</span><span class="badge">R</span>
+            <span class="badge">C#</span><span class="badge">Git</span><span class="badge">Docker</span>
+            <span class="badge">Power BI</span><span class="badge">Tableau</span><span class="badge">SSRS</span>
+            <span class="badge">Microsoft Fabric</span><span class="badge">Spark</span><span class="badge">Data Lakes</span>
+            <span class="badge">MySQL</span><span class="badge">LINQ</span><span class="badge">Machine learning</span>
+            <span class="badge">NLP</span>
+          </div>
+        </div>
+
+        <p style="font-size:0.78rem;color:#555;">
+          Want the full story? <a href="https://www.linkedin.com/in/priyesh-jagroep-672526179/" target="_blank" rel="noopener">Find me on LinkedIn</a>
+          or run <b>SELECT * FROM experience;</b> in sql_term.exe.
+        </p>
+      </div>
+      <div class="statusbar"><div>2 sections · 5 entries</div><div>100%</div></div>
+    </section>
+
+    <!-- ---------- projects ---------- -->
+    <section class="win" id="win-projects" data-title="C:\Priyesh\projects" data-ic="📁" style="left: 30%; top: 14%; width: 640px; height: 68%;">
+      <div class="titlebar">
+        <span class="t-ic">📁</span><span class="t-title">C:\Priyesh\projects</span>
+        <span class="t-btns">
+          <button class="t-btn" data-act="min" aria-label="Minimize">▁</button>
+          <button class="t-btn" data-act="max" aria-label="Maximize">▢</button>
+          <button class="t-btn" data-act="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Help</span></div>
+      <div class="win-body">
+        <div class="proj-grid">
+
+          <div class="proj-card">
+            <a href="journey-app.html">
+              <img src="./assets/images/portfolio/journey-app/project-journey-app.JPG" alt="Journey planner app screens">
+            </a>
+            <div class="p-name">Context-aware journey planner</div>
+            <div class="p-for">iOS prototype · personal project</div>
+            Plans routes based on activity, intensity and mood — with live weather and local news along the way.
+            <div style="margin-top:8px;"><a class="btn95" href="journey-app.html">Open ▸</a></div>
+          </div>
+
+          <div class="proj-card">
+            <div class="p-ic">🚇</div>
+            <div class="p-name">Amsterdam crowdedness prediction</div>
+            <div class="p-for">for Gemeente Amsterdam</div>
+            Machine learning on GVB transit and concert data to predict peak congestion in the city, helping plan around crowded periods.
+          </div>
+
+          <div class="proj-card">
+            <div class="p-ic">🪪</div>
+            <div class="p-name">Marktplaats iDIN prototype</div>
+            <div class="p-for">for Marktplaats</div>
+            Interactive UI prototype integrating iDIN for secure customer identity verification on the Netherlands' biggest marketplace.
+          </div>
+
+          <div class="proj-card">
+            <div class="p-ic">🧾</div>
+            <div class="p-name">GRC reporting automation</div>
+            <div class="p-for">at Yellowtail BV</div>
+            Automated governance, risk &amp; compliance reporting flows with interactive Power BI and SSRS dashboards — report prep time down 23%.
+          </div>
+
+          <div class="proj-card">
+            <div class="p-ic">🏦</div>
+            <div class="p-name">Supervisory data platform</div>
+            <div class="p-for">at AFM</div>
+            Scalable pipelines in Microsoft Fabric, Spark and Data Lakes powering supervision and data-driven policy for 25+ teams.
+          </div>
+
+        </div>
+      </div>
+      <div class="statusbar"><div>5 object(s)</div><div>2.4 MB</div></div>
+    </section>
+
+    <!-- ---------- dashboard ---------- -->
+    <section class="win" id="win-dash" data-title="dashboard.exe — priyesh.dwh" data-ic="📊" style="left: 38%; top: 9%; width: 560px; height: 72%;">
+      <div class="titlebar">
+        <span class="t-ic">📊</span><span class="t-title">dashboard.exe — priyesh.dwh</span>
+        <span class="t-btns">
+          <button class="t-btn" data-act="min" aria-label="Minimize">▁</button>
+          <button class="t-btn" data-act="max" aria-label="Maximize">▢</button>
+          <button class="t-btn" data-act="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="win-body">
+        <h3>Career KPIs</h3>
+        <div class="kpis">
+          <div class="kpi"><div class="n" data-count="25">0</div><div class="d">+ teams supported with reporting</div></div>
+          <div class="kpi"><div class="n" data-count="23">0</div><div class="d">% faster report preparation</div></div>
+          <div class="kpi"><div class="n" data-count="15">0</div><div class="d">% operational efficiency gained</div></div>
+          <div class="kpi"><div class="n" data-count="4">0</div><div class="d">+ years turning data into decisions</div></div>
+        </div>
+
+        <h3>Tool proficiency</h3>
+        <div class="bar-row"><span>Power BI</span><span class="bar-track"><span class="bar-fill" data-w="95"></span></span><span class="bar-pct">95%</span></div>
+        <div class="bar-row"><span>SQL</span><span class="bar-track"><span class="bar-fill" data-w="92"></span></span><span class="bar-pct">92%</span></div>
+        <div class="bar-row"><span>Python</span><span class="bar-track"><span class="bar-fill" data-w="88"></span></span><span class="bar-pct">88%</span></div>
+        <div class="bar-row"><span>MS Fabric</span><span class="bar-track"><span class="bar-fill" data-w="82"></span></span><span class="bar-pct">82%</span></div>
+        <div class="bar-row"><span>Spark</span><span class="bar-track"><span class="bar-fill" data-w="75"></span></span><span class="bar-pct">75%</span></div>
+        <div class="bar-row"><span>Machine learning</span><span class="bar-track"><span class="bar-fill" data-w="78"></span></span><span class="bar-pct">78%</span></div>
+        <div class="bar-row"><span>Tableau</span><span class="bar-track"><span class="bar-fill" data-w="70"></span></span><span class="bar-pct">70%</span></div>
+
+        <p class="dash-note">⟳ Refreshed live from priyesh.dwh · semantic model v2.6 · no rows were harmed</p>
+      </div>
+      <div class="statusbar"><div>Connected: fabric://priyesh.dwh</div><div>DirectQuery</div></div>
+    </section>
+
+    <!-- ---------- terminal ---------- -->
+    <section class="win" id="win-term" data-title="sql_term.exe" data-ic="🖥️" style="left: 18%; top: 18%; width: 620px; height: 62%;">
+      <div class="titlebar">
+        <span class="t-ic">🖥️</span><span class="t-title">sql_term.exe — C:\WINDOWS\system32\datashell</span>
+        <span class="t-btns">
+          <button class="t-btn" data-act="min" aria-label="Minimize">▁</button>
+          <button class="t-btn" data-act="max" aria-label="Maximize">▢</button>
+          <button class="t-btn" data-act="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="win-body term crt" id="term-body">
+        <div id="term-out"></div>
+        <div class="term-in-row">
+          <span class="prompt">priyesh@dwh:~$ </span>
+          <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input">
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- contact ---------- -->
+    <section class="win" id="win-contact" data-title="contact.txt — Notepad" data-ic="📬" style="left: 42%; top: 24%; width: 430px;">
+      <div class="titlebar">
+        <span class="t-ic">📬</span><span class="t-title">contact.txt — Notepad</span>
+        <span class="t-btns">
+          <button class="t-btn" data-act="min" aria-label="Minimize">▁</button>
+          <button class="t-btn" data-act="max" aria-label="Maximize">▢</button>
+          <button class="t-btn" data-act="close" aria-label="Close">✕</button>
+        </span>
+      </div>
+      <div class="menubar"><span>File</span><span>Edit</span><span>Help</span></div>
+      <div class="win-body">
+        <p style="margin-bottom:14px;">Always happy to talk data, dashboards or a good idea.</p>
+        <p>📧 <a href="mailto:priyeshjj@gmail.com">priyeshjj@gmail.com</a></p>
+        <p>💼 <a href="https://www.linkedin.com/in/priyesh-jagroep-672526179/" target="_blank" rel="noopener">linkedin.com/in/priyesh-jagroep</a></p>
+        <p>🐙 <a href="https://github.com/priyeshj12" target="_blank" rel="noopener">github.com/priyeshj12</a></p>
+        <p>📍 Almere / Amsterdam, the Netherlands</p>
+        <p style="margin-top:14px;"><a class="btn95" href="mailto:priyeshjj@gmail.com">Send mail ▸</a></p>
+      </div>
+      <div class="statusbar"><div>Ln 4, Col 1</div></div>
+    </section>
+
+    <!-- ---------- taskbar ---------- -->
+    <div id="taskbar">
+      <button id="start-btn" class="btn95"><span class="logo">🟦</span> Start</button>
+      <div id="task-btns"></div>
+      <div id="clock">--:--</div>
     </div>
 
-  </main>
+    <div id="start-menu" class="bevel-out" role="menu">
+      <div class="sm-side">PriyeshOS 95</div>
+      <div class="sm-items">
+        <button class="sm-item" data-open="win-about"><span class="smi">👤</span> About Priyesh</button>
+        <button class="sm-item" data-open="win-resume"><span class="smi">📄</span> Resume</button>
+        <button class="sm-item" data-open="win-projects"><span class="smi">📁</span> Projects</button>
+        <button class="sm-item" data-open="win-dash"><span class="smi">📊</span> Dashboard</button>
+        <button class="sm-item" data-open="win-term"><span class="smi">🖥️</span> SQL Terminal</button>
+        <button class="sm-item" data-open="win-contact"><span class="smi">📬</span> Contact</button>
+        <div class="sm-sep"></div>
+        <a class="sm-item" href="https://www.linkedin.com/in/priyesh-jagroep-672526179/" target="_blank" rel="noopener"><span class="smi">💼</span> LinkedIn</a>
+        <a class="sm-item" href="https://github.com/priyeshj12" target="_blank" rel="noopener"><span class="smi">🐙</span> GitHub</a>
+        <a class="sm-item" href="index-nl.html"><span class="smi">🇳🇱</span> Nederlandse versie</a>
+        <div class="sm-sep"></div>
+        <button class="sm-item" id="shutdown-btn"><span class="smi">⏻</span> Shut Down...</button>
+      </div>
+    </div>
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
+  </div>
 
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!-- ================= SHUTDOWN ================= -->
+  <div id="shutdown" class="hidden">
+    <div>It's now safe to close this tab.<br><span style="font-size:0.55em;color:#888;">(click anywhere to reboot)</span></div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var $ = function (s, c) { return (c || document).querySelector(s); };
+      var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+      /* ================= boot sequence ================= */
+
+      var bootEl = $("#boot"), bootLines = $("#boot-lines"), desktop = $("#desktop");
+      var booted = false;
+
+      var BOOT = [
+        ["PRIYESH BIOS v1.999", 0],
+        ["(C) 1999-" + new Date().getFullYear() + " Jagroep Data Systems, Almere NL", 60],
+        ["", 200],
+        ["Checking RAM.............. <v>16384 MB</v> <o>OK</o>", 220],
+        ["Detecting drives.......... <v>DATALAKE 64TB</v> <o>OK</o>", 260],
+        ["Mounting fabric:\\ ........ <o>OK</o>", 240],
+        ["Loading python.dll........ <o>OK</o>", 180],
+        ["Loading pandas.dll........ <o>OK</o>", 160],
+        ["Loading powerbi.drv....... <o>OK</o>", 180],
+        ["Loading stroopwafel.sys... <o>OK</o>", 200],
+        ["Starting Spark cluster.... <v>4 executors</v> <o>ONLINE</o>", 320],
+        ["", 150],
+        ["> SELECT * FROM portfolio WHERE owner = 'Priyesh Jagroep';", 420],
+        ["<o>1 row retrieved</o> (0.042s)", 500],
+        ["", 200],
+        ["Starting priyesh.exe...", 600]
+      ];
+
+      function fmt(s) {
+        return s.replace(/<o>/g, '<span class="ok">').replace(/<\/o>/g, "</span>")
+                .replace(/<v>/g, '<span class="val">').replace(/<\/v>/g, "</span>");
+      }
+
+      function runBoot(i) {
+        if (booted) return;
+        if (i >= BOOT.length) { finishBoot(); return; }
+        var prev = $(".cursor", bootLines);
+        if (prev) prev.classList.remove("cursor");
+        var div = document.createElement("div");
+        div.className = "boot-line cursor";
+        div.innerHTML = fmt(BOOT[i][0]) || "&nbsp;";
+        bootLines.appendChild(div);
+        setTimeout(function () { runBoot(i + 1); }, BOOT[i][1] || 100);
+      }
+
+      function finishBoot() {
+        if (booted) return;
+        booted = true;
+        bootEl.classList.add("hidden");
+        desktop.classList.remove("hidden");
+        try { sessionStorage.setItem("pos-booted", "1"); } catch (e) {}
+        openWin("win-about");
+      }
+
+      bootEl.addEventListener("click", finishBoot);
+      document.addEventListener("keydown", function (e) { if (!booted) { e.preventDefault(); finishBoot(); } });
+
+      var skipBoot = false;
+      try { skipBoot = sessionStorage.getItem("pos-booted") === "1"; } catch (e) {}
+      if (skipBoot) { finishBoot(); } else { setTimeout(function () { runBoot(0); }, 300); }
+
+      /* ================= window manager ================= */
+
+      var zTop = 100;
+      var taskBtns = {};
+
+      function focusWin(w) {
+        $$(".win").forEach(function (x) { x.classList.remove("focused"); });
+        w.classList.add("focused");
+        w.style.zIndex = ++zTop;
+        Object.keys(taskBtns).forEach(function (k) { taskBtns[k].classList.toggle("pressed", k === w.id); });
+      }
+
+      function openWin(id) {
+        var w = document.getElementById(id);
+        if (!w) return;
+        w.classList.add("open");
+        w.dataset.min = "";
+        if (!taskBtns[id]) {
+          var b = document.createElement("button");
+          b.className = "btn95 task-btn";
+          b.innerHTML = "<span>" + (w.dataset.ic || "▪") + "</span> " + w.dataset.title;
+          b.addEventListener("click", function () {
+            if (w.dataset.min === "1" || !w.classList.contains("focused")) {
+              w.classList.add("open");
+              w.dataset.min = "";
+              focusWin(w);
+            } else {
+              minWin(w);
+            }
+          });
+          $("#task-btns").appendChild(b);
+          taskBtns[id] = b;
+        }
+        focusWin(w);
+        if (id === "win-dash") animateDash();
+        if (id === "win-term") setTimeout(function () { $("#term-input").focus(); }, 50);
+      }
+
+      function closeWin(w) {
+        w.classList.remove("open", "maxed");
+        if (taskBtns[w.id]) { taskBtns[w.id].remove(); delete taskBtns[w.id]; }
+      }
+
+      function minWin(w) {
+        w.classList.remove("open");
+        w.dataset.min = "1";
+        if (taskBtns[w.id]) taskBtns[w.id].classList.remove("pressed");
+      }
+
+      $$(".win").forEach(function (w) {
+        w.addEventListener("pointerdown", function () { focusWin(w); });
+
+        $$(".t-btn", w).forEach(function (b) {
+          b.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var act = b.dataset.act;
+            if (act === "close") closeWin(w);
+            else if (act === "min") minWin(w);
+            else if (act === "max") w.classList.toggle("maxed");
+          });
+        });
+
+        /* drag */
+        var tb = $(".titlebar", w);
+        var drag = null;
+        tb.addEventListener("pointerdown", function (e) {
+          if (e.target.closest(".t-btn") || w.classList.contains("maxed")) return;
+          if (window.matchMedia("(max-width: 700px)").matches) return;
+          drag = { x: e.clientX, y: e.clientY, l: w.offsetLeft, t: w.offsetTop };
+          tb.setPointerCapture(e.pointerId);
+        });
+        tb.addEventListener("pointermove", function (e) {
+          if (!drag) return;
+          var nl = drag.l + e.clientX - drag.x;
+          var nt = drag.t + e.clientY - drag.y;
+          nl = Math.max(-w.offsetWidth + 80, Math.min(nl, window.innerWidth - 60));
+          nt = Math.max(0, Math.min(nt, window.innerHeight - 80));
+          w.style.left = nl + "px";
+          w.style.top = nt + "px";
+        });
+        tb.addEventListener("pointerup", function () { drag = null; });
+        tb.addEventListener("dblclick", function (e) {
+          if (!e.target.closest(".t-btn")) w.classList.toggle("maxed");
+        });
+      });
+
+      $$("[data-open]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          openWin(el.dataset.open);
+          startMenu.classList.remove("open");
+        });
+      });
+
+      /* ================= dashboard animation ================= */
+
+      var dashDone = false;
+      function animateDash() {
+        if (dashDone) return;
+        dashDone = true;
+        $$("#win-dash .bar-fill").forEach(function (f) {
+          setTimeout(function () { f.style.width = f.dataset.w + "%"; }, 150);
+        });
+        $$("#win-dash [data-count]").forEach(function (el) {
+          var target = parseInt(el.dataset.count, 10), cur = 0;
+          var step = Math.max(1, Math.round(target / 30));
+          var iv = setInterval(function () {
+            cur = Math.min(target, cur + step);
+            el.textContent = cur;
+            if (cur >= target) clearInterval(iv);
+          }, 40);
+        });
+      }
+
+      /* ================= taskbar / start menu / clock ================= */
+
+      var startMenu = $("#start-menu");
+      $("#start-btn").addEventListener("click", function (e) {
+        e.stopPropagation();
+        startMenu.classList.toggle("open");
+      });
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest("#start-menu") && !e.target.closest("#start-btn")) {
+          startMenu.classList.remove("open");
+        }
+      });
+
+      function tick() {
+        var d = new Date();
+        var hh = String(d.getHours()).padStart(2, "0");
+        var mm = String(d.getMinutes()).padStart(2, "0");
+        $("#clock").textContent = hh + ":" + mm;
+      }
+      tick();
+      setInterval(tick, 15000);
+
+      /* shutdown */
+      var shut = $("#shutdown");
+      $("#shutdown-btn").addEventListener("click", function () {
+        startMenu.classList.remove("open");
+        shut.classList.remove("hidden");
+      });
+      shut.addEventListener("click", function () {
+        shut.classList.add("hidden");
+        try { sessionStorage.removeItem("pos-booted"); } catch (e) {}
+        booted = false;
+        bootLines.innerHTML = "";
+        desktop.classList.add("hidden");
+        bootEl.classList.remove("hidden");
+        runBoot(0);
+      });
+
+      /* ================= SQL terminal ================= */
+
+      var termOut = $("#term-out"), termIn = $("#term-input"), termBody = $("#term-body");
+
+      function tprint(html, cls) {
+        var pre = document.createElement("pre");
+        if (cls) pre.className = cls;
+        pre.innerHTML = html;
+        termOut.appendChild(pre);
+        termBody.scrollTop = termBody.scrollHeight;
+      }
+
+      termBody.addEventListener("click", function () { termIn.focus(); });
+
+      var SKILLS_TBL =
+        "+----------------------+-----------------------------------+\n" +
+        "| category             | skills                            |\n" +
+        "+----------------------+-----------------------------------+\n" +
+        "| programming          | Python, SQL, R, C#                |\n" +
+        "| visualization        | Power BI, Tableau, SSRS           |\n" +
+        "| data platforms       | MS Fabric, Spark, Data Lakes      |\n" +
+        "| databases/frameworks | MySQL, LINQ                       |\n" +
+        "| ml                   | forecasting, NLP, classification  |\n" +
+        "| tools                | Git, Docker                       |\n" +
+        "+----------------------+-----------------------------------+\n" +
+        "6 rows in set (0.03 sec)";
+
+      var EXP_TBL =
+        "+-----------------+---------------------------+-----------------+\n" +
+        "| period          | organisation              | role            |\n" +
+        "+-----------------+---------------------------+-----------------+\n" +
+        "| 2025 - present  | AFM                       | BI Specialist   |\n" +
+        "| 2022 - 2025     | Yellowtail BV             | IT Developer    |\n" +
+        "| 2020            | Football Temple           | Retail Analyst  |\n" +
+        "+-----------------+---------------------------+-----------------+\n" +
+        "3 rows in set (0.02 sec)";
+
+      var PROJ_TBL =
+        "+----------------------------------+------------------------+\n" +
+        "| project                          | for                    |\n" +
+        "+----------------------------------+------------------------+\n" +
+        "| crowdedness prediction (ML)      | Gemeente Amsterdam     |\n" +
+        "| iDIN identity prototype          | Marktplaats            |\n" +
+        "| GRC reporting automation         | Yellowtail clients     |\n" +
+        "| supervisory data platform        | AFM                    |\n" +
+        "| context-aware journey planner    | personal project       |\n" +
+        "+----------------------------------+------------------------+\n" +
+        "5 rows in set (0.04 sec)";
+
+      var HELP =
+        '<span class="white">Available commands:</span>\n' +
+        "  help                       this screen\n" +
+        "  whoami                     who is this guy\n" +
+        "  dir                        list tables\n" +
+        "  SELECT * FROM skills;      my toolbox\n" +
+        "  SELECT * FROM experience;  where I've worked\n" +
+        "  SELECT * FROM projects;    what I've built\n" +
+        "  SELECT * FROM contact;     get in touch\n" +
+        "  clear                      clean the screen\n" +
+        '<span class="dim">hint: this shell also forgives you if you forget the semicolon.</span>';
+
+      function runCmd(raw) {
+        var cmd = raw.trim();
+        tprint('<span class="dim">priyesh@dwh:~$</span> <span class="white">' + esc(cmd) + "</span>");
+        if (!cmd) return;
+        var c = cmd.toLowerCase().replace(/;+$/, "").replace(/\s+/g, " ");
+
+        if (c === "help" || c === "/help" || c === "man") tprint(HELP);
+        else if (c === "clear" || c === "cls") termOut.innerHTML = "";
+        else if (c === "whoami") tprint('Priyesh Jagroep — Data Scientist / BI Specialist\nAlmere, NL. MSc Data Science (UvA). Currently @ AFM.\n<span class="dim">Turning data into decisions since 2020.</span>');
+        else if (c === "dir" || c === "ls" || c === "show tables") tprint("Tables in priyesh.dwh:\n\n  skills\n  experience\n  projects\n  contact\n\n4 table(s), 0 bytes free of ego");
+        else if (/^select .* from skills$/.test(c) || c === "skills") tprint(SKILLS_TBL);
+        else if (/^select .* from experience$/.test(c) || c === "experience") tprint(EXP_TBL);
+        else if (/^select .* from projects$/.test(c) || c === "projects") tprint(PROJ_TBL);
+        else if (/^select .* from contact$/.test(c) || c === "contact") tprint('email    : <a href="mailto:priyeshjj@gmail.com">priyeshjj@gmail.com</a>\nlinkedin : <a href="https://www.linkedin.com/in/priyesh-jagroep-672526179/" target="_blank" rel="noopener">/in/priyesh-jagroep</a>\ngithub   : <a href="https://github.com/priyeshj12" target="_blank" rel="noopener">/priyeshj12</a>\nlocation : Almere / Amsterdam, NL');
+        else if (/^drop table/.test(c) || /^drop database/.test(c)) tprint('<span class="amber">ERROR 1142: DROP command denied. Nice try though. 🙃</span>');
+        else if (/^sudo/.test(c)) tprint('<span class="amber">priyesh is not in the sudoers file. This incident will be visualised in Power BI.</span>');
+        else if (c === "coffee" || c === "koffie") tprint("☕ brewing... done. Productivity +23%.");
+        else if (/^select 42$/.test(c) || c === "42") tprint("+----+\n| 42 |\n+----+\n1 row in set — the answer to everything (0.00 sec)");
+        else if (/^select/.test(c)) tprint('<span class="amber">ERROR 1146: table not found.</span> Try <span class="white">dir</span> to list tables.');
+        else if (c === "exit" || c === "quit") tprint('<span class="dim">There is no escape from the data warehouse. Try the ✕ button.</span>');
+        else tprint('<span class="amber">\'' + esc(cmd) + '\' is not recognized.</span> Type <span class="white">help</span> for commands.');
+      }
+
+      function esc(s) {
+        return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      }
+
+      var hist = [], histIdx = -1;
+      termIn.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          var v = termIn.value;
+          if (v.trim()) { hist.push(v); }
+          histIdx = hist.length;
+          termIn.value = "";
+          runCmd(v);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (histIdx > 0) { histIdx--; termIn.value = hist[histIdx] || ""; }
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (histIdx < hist.length) { histIdx++; termIn.value = hist[histIdx] || ""; }
+        }
+      });
+
+      tprint('<span class="white">PriyeshOS DataShell v2.6</span> — connected to <span class="amber">fabric://priyesh.dwh</span>');
+      tprint('Type <span class="white">help</span> for commands, or try <span class="white">SELECT * FROM skills;</span>\n ');
+
+    })();
+  </script>
 
 </body>
 
